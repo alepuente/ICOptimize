@@ -22,7 +22,11 @@ public class PlayerController : MonoBehaviour {
     private int maxWaypoint;
     private NavMeshAgent nav;
 
-    private int rudderSailors = 0;
+    private int rudderSailor = 0;
+    private int nestSailor = 0;
+    public int cannonLeft = 0;
+    public int cannonRight = 0;
+    public int cannonFront = 0;
 
 
     private void Awake()
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 
     public void MouseController()
     {
-        if (InputManager.instance.getSelection() != Vector3.zero && rudderSailors==1)
+        if (InputManager.instance.getSelection() != Vector3.zero && rudderSailor == 1)
         {
             waypoints.Add(InputManager.instance.getSelection());
         }
@@ -51,11 +55,11 @@ public class PlayerController : MonoBehaviour {
     {
         switch (sailorType)
         {
-            case 1: if(rudderSailors<1)rudderSailors++; break;
-            case 2: Debug.LogError("NestOut"); break;
-            case 3: Debug.LogError("LeftOut"); break;
-            case 4: Debug.LogError("RightOut"); break;
-            case 5: Debug.LogError("FrontOut"); break;
+            case 1: if(rudderSailor < 1) rudderSailor++; break;
+            case 2: if (nestSailor < 1) nestSailor++; break;
+            case 3: if (cannonLeft < 2) cannonLeft++; break;
+            case 4: if (cannonRight < 2) cannonRight++; break;
+            case 5: if (cannonFront < 2) cannonFront++; break;
         }
     }
 
