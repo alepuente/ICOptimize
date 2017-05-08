@@ -7,10 +7,15 @@ public class InputKeyboard : IInput
 {
     Ray ray;
     RaycastHit hit;
-
+    private int fingerID = -1;
 
     public Vector3 getSelection()
     {
+#if !UNITY_EDITOR
+     fingerID = 0; 
+#endif
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(fingerID))
+        {            
         if (Input.GetButton("Fire1"))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -26,6 +31,7 @@ public class InputKeyboard : IInput
                     case "FrontCannon": PlayerController.instance.sailorEvent.Invoke(5); break;  
                 }
             }
+        }
         }
         return Vector3.zero;
     }

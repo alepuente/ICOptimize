@@ -10,11 +10,8 @@ public class CameraController : MonoBehaviour {
     public GameObject closePos;
     public GameObject farPos;
 
-    private bool control;
-    private bool close;
-    private bool far;
-
-    public GameObject flagObjects;
+    public Camera followCamera;
+    public Camera onBoardCamera;
 
     private GameObject player;
     private CameraPositions actualPos;
@@ -54,26 +51,28 @@ public class CameraController : MonoBehaviour {
     {
         if (pos == CameraPositions.Control)
         {
-            transform.position = controlPos.transform.position;
-            close = false;
-            far = false;
-            flagObjects.SetActive(false);
+            onBoardCamera.gameObject.SetActive(true);
+            followCamera.gameObject.SetActive(false);
+
+            PlayerController.instance.flagObjects.SetActive(false);
             actualPos = pos;
         }
         else if (pos == CameraPositions.Close)
         {
-            transform.position = closePos.transform.position;
-            control = false;
-            far = false;
-            flagObjects.SetActive(true);
+            followCamera.gameObject.SetActive(true);
+            onBoardCamera.gameObject.SetActive(false);
+
+            followCamera.gameObject.transform.position = closePos.transform.position;
+            PlayerController.instance.flagObjects.SetActive(true);
             actualPos = pos;
         }
         else if (pos == CameraPositions.Far)
         {
-            transform.position = farPos.transform.position;
-            close = false;
-            control = false;
-            flagObjects.SetActive(true);
+            followCamera.gameObject.SetActive(true);
+            onBoardCamera.gameObject.SetActive(false);
+
+            followCamera.gameObject.transform.position = farPos.transform.position;
+            PlayerController.instance.flagObjects.SetActive(true);
             actualPos = pos;
         }
     }
@@ -82,7 +81,7 @@ public class CameraController : MonoBehaviour {
     {       
         if (actualPos != CameraPositions.Control)
         {
-            gameObject.transform.position = new Vector3(player.transform.position.x, gameObject.transform.position.y, player.transform.position.z);
+            followCamera.gameObject.transform.position = new Vector3(player.transform.position.x, followCamera.transform.position.y, player.transform.position.z);
         }
     }
 }

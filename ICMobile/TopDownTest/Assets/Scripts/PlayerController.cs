@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
     public float patrolSpeed = 2.0f;
+    public float turnSpeed;
     public List<Vector3> waypoints;
     public float minWaypointDistance = 0.1f;
     public GameObject[] attackPoint;
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour {
     public int cannonLeft = 0;
     public int cannonRight = 0;
     public int cannonFront = 0;
+
+    public GameObject flagObjects;
 
 
     private void Awake()
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (InputManager.instance.getSelection() != Vector3.zero && rudderSailor == 1)
         {
+            waypoints.Clear();
             waypoints.Add(InputManager.instance.getSelection());
         }
     }
@@ -67,9 +71,6 @@ public class PlayerController : MonoBehaviour {
     {
         if (waypoints.Count > 0)
         {
-            // Set the ai agents movement speed to patrol speed
-            nav.speed = patrolSpeed;
-
             // Create two Vector3 variables, one to buffer the ai agents local position, the other to
             // buffer the next waypoints position
             Vector3 tempLocalPosition;
@@ -93,8 +94,13 @@ public class PlayerController : MonoBehaviour {
             // Set the destination for the agent
             // The navmesh agent is going to do the rest of the work
             if (waypoints.Count > 0)
-                nav.SetDestination(waypoints[0]);
+            {
+                transform.position += transform.forward*patrolSpeed * Time.deltaTime;
+                Vector3 targetDir = waypoints[0] - transform.position;
+                float step = Time.deltaTime / Mathf.PI;
+                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step * turnSpeed , 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDir);
+            }
         }
     }
-       
 }

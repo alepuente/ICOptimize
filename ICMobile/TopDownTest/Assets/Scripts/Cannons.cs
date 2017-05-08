@@ -9,14 +9,14 @@ public class Cannons : MonoBehaviour
     public bool isFront = false;
     public bool isEnemy = false;
 
-    private int sailors;
+    public int sailors;
 
-    private float shootTimer;
-    private float shootFireRate;
+    public float shootTimer;
 
     // Update is called once per frame
     void Update()
     {
+        shootTimer += Time.deltaTime;
         if (isLeft)
         {
             sailors = PlayerController.instance.cannonLeft;
@@ -39,6 +39,7 @@ public class Cannons : MonoBehaviour
     {
         if (other.gameObject.layer == 8 && sailors > 0 && shootTimer > GameManager.instance.FireRateDicc[gameObject.tag])
         {
+            Debug.LogError("Me: "+this.tag+"Shooting: "+other.tag);
             other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.tag, other.GetComponent<Health>().health);
             shootTimer = 0;
         }

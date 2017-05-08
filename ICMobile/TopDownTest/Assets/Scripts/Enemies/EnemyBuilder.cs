@@ -31,7 +31,7 @@ public class EnemyBuilder : MonoBehaviour
         m.tag = enemyType;
         m.layer = 8;
         m.AddComponent<EnemyController>();
-        m.AddComponent<NavMeshAgent>();
+        m.AddComponent<NavMeshAgent>().baseOffset = 0; ;
         m.AddComponent<Health>();
         return m;
     }
