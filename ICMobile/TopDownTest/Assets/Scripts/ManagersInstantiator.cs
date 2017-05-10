@@ -7,7 +7,7 @@ public class ManagersInstantiator : MonoBehaviour
 	public List<GameObject> managers = new List<GameObject>();
 
 	// Use this for initialization
-	void Awake () 
+	public void Awake () 
 	{
 		for (int i = 0; i < managers.Count; i++) 
 		{

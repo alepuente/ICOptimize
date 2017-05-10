@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class CameraController : MonoBehaviour {
     public GameObject controlPos;
     public GameObject closePos;
     public GameObject farPos;
+    public GameObject menuPos;
 
     public Camera followCamera;
     public Camera onBoardCamera;
@@ -16,11 +18,16 @@ public class CameraController : MonoBehaviour {
     private GameObject player;
     private CameraPositions actualPos;
 
+    public bool nest;
+
+    public Button nestButton;
+
     public enum CameraPositions
     {
         Control,
         Close,
-        Far
+        Far,
+        Menu
     }
 
     private void Awake()
@@ -30,7 +37,7 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        changeCameraPos(CameraPositions.Control);
+        changeCameraPos(CameraPositions.Menu);
         player = PlayerController.instance.gameObject;
 	}
 
@@ -46,10 +53,22 @@ public class CameraController : MonoBehaviour {
     {
         changeCameraPos(CameraPositions.Far);
     }
+    public void changeToMenu()
+    {
+        changeCameraPos(CameraPositions.Menu);
+    }
 
     public void changeCameraPos(CameraPositions pos)
     {
-        if (pos == CameraPositions.Control)
+        if (pos == CameraPositions.Menu)
+        {
+            followCamera.gameObject.SetActive(true);
+            onBoardCamera.gameObject.SetActive(false);
+
+            followCamera.gameObject.transform.position = closePos.transform.position;
+            actualPos = pos;
+        }
+        else if (pos == CameraPositions.Control)
         {
             onBoardCamera.gameObject.SetActive(true);
             followCamera.gameObject.SetActive(false);
@@ -78,8 +97,17 @@ public class CameraController : MonoBehaviour {
     }
 
     private void Update()
-    {       
-        if (actualPos != CameraPositions.Control)
+    {
+        if (nest)
+        {
+            nestButton.interactable = true;
+        }
+        else
+        {
+            nestButton.interactable = false;
+        }
+
+        if (actualPos == CameraPositions.Close || actualPos == CameraPositions.Far)
         {
             followCamera.gameObject.transform.position = new Vector3(player.transform.position.x, followCamera.transform.position.y, player.transform.position.z);
         }

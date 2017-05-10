@@ -4,41 +4,63 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public Dictionary<string, float> DamageDicc;
-    public Dictionary<string, float> HealthDicc;
-    public Dictionary<string, float> FireRateDicc;
+    public Dictionary<string, float> DamageDic;
+    public Dictionary<string, float> HealthDic;
+    public Dictionary<string, float> FireRateDic;
+    public Dictionary<string, float> SpeedDic;
+    public Dictionary<string, float> TurnSpeedDic;
+
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
 
     public static GameManager instance;
 
     private void Awake()
     {
         instance = this;
-        DamageDicc = new Dictionary<string, float>();
-        HealthDicc = new Dictionary<string, float>();
-        FireRateDicc = new Dictionary<string, float>();
+        DamageDic = new Dictionary<string, float>();
+        HealthDic = new Dictionary<string, float>();
+        FireRateDic = new Dictionary<string, float>();
+        SpeedDic = new Dictionary<string, float>();
+        TurnSpeedDic = new Dictionary<string, float>();
 
-        DamageDicc.Add("Player", 10f);
-        DamageDicc.Add("boat", 5f);
-        DamageDicc.Add("ship", 10f);
+        minX = -150;
+        maxX = 150;
+        minZ = -130;
+        maxZ = 130;
 
-        HealthDicc.Add("Player", 100f);
-        HealthDicc.Add("boat", 30f);
-        HealthDicc.Add("ship", 80f);
+        DamageDic.Add("Player", 10f);
+        DamageDic.Add("boat", 5f);
+        DamageDic.Add("ship", 10f);
 
-        FireRateDicc.Add("Player", 2f);
-        FireRateDicc.Add("boat", 3f);
-        FireRateDicc.Add("ship", 5f);
+        HealthDic.Add("Player", 100f);
+        HealthDic.Add("boat", 30f);
+        HealthDic.Add("ship", 80f);
+
+        FireRateDic.Add("Player", 2f);
+        FireRateDic.Add("boat", 3f);
+        FireRateDic.Add("ship", 2f);
+
+        SpeedDic.Add("Player", 15f);
+        SpeedDic.Add("boat", 9f);
+        SpeedDic.Add("ship",7f);
+
+        TurnSpeedDic.Add("Player", 20f);
+        TurnSpeedDic.Add("boat", 1.5f);
+        TurnSpeedDic.Add("ship", 1f);
     }
 
 
     public float calculateDamage(string type, float health)
     {
-        return health -DamageDicc[type];
+        return health -DamageDic[type];
     }
 
     public void updateDamage(string type, float newDamage)
     {
-        DamageDicc[type] = newDamage;
+        DamageDic[type] = newDamage;
     }
     
 }

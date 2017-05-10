@@ -22,7 +22,7 @@ public class SpawnerEnemy : MonoBehaviour
     public void Spawn()
     {
         GameObject aux = EnemyBuilder.instance.Build(enemyTypes[Random.Range(0, enemyTypes.Count)]);
-        aux.transform.LookAt(PlayerController.instance.transform);
         aux.gameObject.transform.position = gameObject.transform.position;
+        aux.transform.LookAt(PlayerController.instance.transform.position);
     }
 }

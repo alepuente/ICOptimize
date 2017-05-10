@@ -12,7 +12,7 @@ public class SailorsEvent : UnityEvent<int>
 public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
-    public float patrolSpeed = 2.0f;
+    public float patrolSpeed;
     public float turnSpeed;
     public List<Vector3> waypoints;
     public float minWaypointDistance = 0.1f;
@@ -35,13 +35,18 @@ public class PlayerController : MonoBehaviour {
     private void Awake()
     {
         instance = this;
-        nav = GetComponent<NavMeshAgent>();
         sailorEvent.AddListener(spawnSailor);
+    }
+
+    private void Start()
+    {
+        turnSpeed = GameManager.instance.TurnSpeedDic["Player"];
+        patrolSpeed = GameManager.instance.SpeedDic["Player"];
     }
 
    
     private void Update()
-    {
+    {      
         MouseController();
         Patrolling();
     }
@@ -60,7 +65,7 @@ public class PlayerController : MonoBehaviour {
         switch (sailorType)
         {
             case 1: if(rudderSailor < 1) rudderSailor++; break;
-            case 2: if (nestSailor < 1) nestSailor++; break;
+            case 2: if (nestSailor < 1) nestSailor++; CameraController.instance.nest = true; break;
             case 3: if (cannonLeft < 2) cannonLeft++; break;
             case 4: if (cannonRight < 2) cannonRight++; break;
             case 5: if (cannonFront < 2) cannonFront++; break;
@@ -99,8 +104,14 @@ public class PlayerController : MonoBehaviour {
                 Vector3 targetDir = waypoints[0] - transform.position;
                 float step = Time.deltaTime / Mathf.PI;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step * turnSpeed , 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-            }
+                transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x,0,newDir.z));
+
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.instance.minX, GameManager.instance.maxX),
+                                                            transform.position.y,
+                                                              Mathf.Clamp(transform.position.z, GameManager.instance.minZ, GameManager.instance.maxZ));
+            
+
+             }
         }
     }
 }

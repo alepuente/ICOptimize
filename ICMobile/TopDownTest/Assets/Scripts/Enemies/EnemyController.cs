@@ -5,29 +5,30 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-
-    private NavMeshAgent navAgent;
     private int attackPosition;
     private PlayerController player;
+    public float speed;
+    public float turnSpeed;
+    private Vector3 attackPos;
+
 
     void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
         player = PlayerController.instance;
         attackPosition = Random.Range(0, player.attackPoint.Length);
-        
+        speed = GameManager.instance.SpeedDic[tag];
+        turnSpeed = GameManager.instance.TurnSpeedDic[tag];
     }
 
     void Update()
     {
-        navAgent.destination = player.attackPoint[attackPosition].transform.position;
-    }
-
-    void Attack()
-    {
-        if (Vector3.Distance(transform.position,player.transform.position) < navAgent.stoppingDistance)
+        if (Vector3.Distance(transform.position, player.attackPoint[attackPosition].transform.position) > 0)
         {
-            //Attack
+            transform.position += transform.forward * speed * Time.deltaTime;
+            Vector3 targetDir = player.attackPoint[attackPosition].transform.position + new Vector3(Random.Range(0,5),0,0) - transform.position;
+            float step = Time.deltaTime / Mathf.PI;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step * turnSpeed, 0.0f);
+            transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x, 0, newDir.z));       
         }
     }
 }
