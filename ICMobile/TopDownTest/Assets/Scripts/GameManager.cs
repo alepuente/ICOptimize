@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
         SpeedDic.Add("boat", 9f);
         SpeedDic.Add("ship",7f);
 
-        TurnSpeedDic.Add("Player", 20f);
+        TurnSpeedDic.Add("Player", 2f);
         TurnSpeedDic.Add("boat", 1.5f);
         TurnSpeedDic.Add("ship", 1f);
     }
@@ -62,5 +62,11 @@ public class GameManager : MonoBehaviour {
     {
         DamageDic[type] = newDamage;
     }
-    
+    public void resetGame()
+    {
+        PlayerController.instance.reset();
+        EnemyFactory.instance.clearEnemies();
+        CameraController.instance.changeToMenu();
+        MenuManager.instance.StartMenu();
+    }
 }

@@ -11,23 +11,42 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        health = GameManager.instance.HealthDic[gameObject.tag];
-        maxHealth = GameManager.instance.HealthDic[gameObject.tag];
-        if (tag!="Player")
+        reset();
+        if (tag != "Player")
         {
             healthBar = GetComponentInChildren<Image>();
         }
     }
 
+    public void reset()
+    {
+        health = GameManager.instance.HealthDic[gameObject.tag];
+        maxHealth = GameManager.instance.HealthDic[gameObject.tag];
+    }
+
     private void Update()
     {
         if (MenuManager.instance.gameState == GameState.Game)
-        {            
-        healthBar.fillAmount = health / maxHealth;
-        if (health <= 0)
         {
-            Destroy(gameObject);
+            healthBar.fillAmount = health / maxHealth;
+            if (health <= 0)
+            {
+                if (tag != "Player")
+                {
+                    reset();
+                    gameObject.SetActive(false);
+                }
+                else
+                {
+                    reset();
+                    GameManager.instance.resetGame();
+                }
+            }
         }
+        else if (MenuManager.instance.gameState == GameState.Menu)
+        {
+            reset();
         }
+
     }
 }

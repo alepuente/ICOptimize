@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour {
 
     public Camera followCamera;
     public Camera onBoardCamera;
+    public Camera menuCamera;
 
     private GameObject player;
     private CameraPositions actualPos;
@@ -62,16 +63,18 @@ public class CameraController : MonoBehaviour {
     {
         if (pos == CameraPositions.Menu)
         {
-            followCamera.gameObject.SetActive(true);
+            followCamera.gameObject.SetActive(false);
             onBoardCamera.gameObject.SetActive(false);
+            menuCamera.gameObject.SetActive(true);
 
-            followCamera.gameObject.transform.position = closePos.transform.position;
+            menuCamera.gameObject.transform.position = menuPos.transform.position;
             actualPos = pos;
         }
         else if (pos == CameraPositions.Control)
         {
             onBoardCamera.gameObject.SetActive(true);
             followCamera.gameObject.SetActive(false);
+            menuCamera.gameObject.SetActive(false);
 
             PlayerController.instance.flagObjects.SetActive(false);
             actualPos = pos;
@@ -80,6 +83,7 @@ public class CameraController : MonoBehaviour {
         {
             followCamera.gameObject.SetActive(true);
             onBoardCamera.gameObject.SetActive(false);
+            menuCamera.gameObject.SetActive(false);
 
             followCamera.gameObject.transform.position = closePos.transform.position;
             PlayerController.instance.flagObjects.SetActive(true);
@@ -89,6 +93,7 @@ public class CameraController : MonoBehaviour {
         {
             followCamera.gameObject.SetActive(true);
             onBoardCamera.gameObject.SetActive(false);
+            menuCamera.gameObject.SetActive(false);
 
             followCamera.gameObject.transform.position = farPos.transform.position;
             PlayerController.instance.flagObjects.SetActive(true);

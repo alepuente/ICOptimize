@@ -6,25 +6,42 @@ public class EnemyFactory : MonoBehaviour
 {
 
     public static EnemyFactory instance;
+    private List<GameObject> enemies;
 
     private void Awake()
     {
         instance = this;
+        enemies = new List<GameObject>();
     }
-    // Use this for initialization
-    void Start()
+    
+  
+    public void clearEnemies()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].GetComponent<Health>().reset();
+            enemies[i].SetActive(false);
+        }
     }
 
     public GameObject create(string enemyType)
     {
-        return (GameObject)Instantiate(Resources.Load(enemyType, typeof(GameObject))) as GameObject; ;
+        if (enemies.Count>0)
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (!enemies[i].activeInHierarchy)
+                {
+                    enemies[i].SetActive(true);
+                    return enemies[i];
+                }            
+            }
+        }  
+     
+        GameObject enemie;
+        enemie = (GameObject)Instantiate(Resources.Load(enemyType, typeof(GameObject))) as GameObject;
+        enemies.Add(enemie);
+        return enemie;
+        
     }
 }

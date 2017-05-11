@@ -50,7 +50,7 @@ public class Cannons : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 && sailors > 0)
+        if (other.gameObject.layer == 8  && sailors > 0 )
         {
             if (shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
             {                
@@ -63,7 +63,7 @@ public class Cannons : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8 && sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
+        if (other.gameObject.layer == 8  && sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
         {
             other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.tag, other.GetComponent<Health>().health);
             shootTimer = 0;

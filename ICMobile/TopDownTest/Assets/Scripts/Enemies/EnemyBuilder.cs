@@ -28,12 +28,15 @@ public class EnemyBuilder : MonoBehaviour
     public GameObject Build(string enemyType)
     {
         GameObject m = EnemyFactory.instance.create(enemyType);
+        if (m.GetComponent<EnemyController>() == null)
+        {            
         m.tag = enemyType;
         m.layer = 8;
         m.transform.rotation = Quaternion.identity;
         m.AddComponent<EnemyController>();
         m.AddComponent<Health>();
         m.AddComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
         return m;
     }
 }

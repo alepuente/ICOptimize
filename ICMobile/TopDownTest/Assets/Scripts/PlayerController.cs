@@ -51,6 +51,20 @@ public class PlayerController : MonoBehaviour {
         Patrolling();
     }
 
+    public void reset()
+    {
+        rudderSailor = 0;
+        nestSailor = 0;
+        cannonLeft = 0;
+        cannonRight = 0;
+        cannonFront = 0;
+        waypoints.Clear();
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+        transform.position = new Vector3(0f, 0.81f, 0f);
+        transform.rotation = Quaternion.identity;
+    }
+
     public void MouseController()
     {
         if (InputManager.instance.getSelection() != Vector3.zero && rudderSailor == 1)
