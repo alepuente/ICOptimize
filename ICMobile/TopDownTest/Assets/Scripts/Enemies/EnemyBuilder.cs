@@ -30,10 +30,10 @@ public class EnemyBuilder : MonoBehaviour
         GameObject m = EnemyFactory.instance.create(enemyType);
         if (m.GetComponent<EnemyController>() == null)
         {            
-        m.tag = enemyType;
         m.layer = 8;
+        gameObject.name = enemyType;
         m.transform.rotation = Quaternion.identity;
-        m.AddComponent<EnemyController>();
+        m.AddComponent<EnemyController>().name = enemyType;
         m.AddComponent<Health>();
         m.AddComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }

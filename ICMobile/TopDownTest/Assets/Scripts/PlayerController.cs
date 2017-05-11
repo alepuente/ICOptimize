@@ -40,8 +40,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        turnSpeed = GameManager.instance.TurnSpeedDic["Player"];
-        patrolSpeed = GameManager.instance.SpeedDic["Player"];
+        turnSpeed = GameManager.instance.TurnSpeedDic[tag];
+        patrolSpeed = GameManager.instance.SpeedDic[tag];
     }
 
    

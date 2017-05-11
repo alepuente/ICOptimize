@@ -11,10 +11,20 @@ public class Cannons : MonoBehaviour
     public int sailors;
     public float shootTimer;
     public Renderer rangeColor;
+    
+    
 
     void Start()
     {
         rangeColor = GetComponent<Renderer>();
+        if (tag == PlayerController.instance.tag)
+        {
+            gameObject.name = PlayerController.instance.name;
+        }
+        else
+        {
+            gameObject.name = gameObject.GetComponentInParent<EnemyController>().name;
+        }
     }
 
     // Update is called once per frame
@@ -38,7 +48,7 @@ public class Cannons : MonoBehaviour
             sailors = 1;
         }
 
-        if (sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
+        if (sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.name])
         {
             rangeColor.material.color = Color.green;
         }
@@ -50,11 +60,11 @@ public class Cannons : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8  && sailors > 0 )
+        if (other.gameObject.layer == 8 && other.tag != gameObject.tag  && sailors > 0 )
         {
-            if (shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
+            if (shootTimer > GameManager.instance.FireRateDic[gameObject.name])
             {                
-            other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.tag, other.GetComponent<Health>().health);
+            other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.name, other.GetComponent<Health>().health);
             shootTimer = 0;
             }
         }
@@ -63,9 +73,9 @@ public class Cannons : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8  && sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.tag])
+        if (other.gameObject.layer == 8 && other.tag != gameObject.tag && sailors > 0 && shootTimer > GameManager.instance.FireRateDic[gameObject.name])
         {
-            other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.tag, other.GetComponent<Health>().health);
+            other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.name, other.GetComponent<Health>().health);
             shootTimer = 0;
         }
     }

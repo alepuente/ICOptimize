@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameState
 {
@@ -19,6 +20,8 @@ public class MenuManager : MonoBehaviour {
     public GameObject gameHUD;
     public GameObject pauseHUD;
 
+    public Text moneyText;
+
     public GameState gameState;
 
 
@@ -27,6 +30,11 @@ public class MenuManager : MonoBehaviour {
         instance = this;
         StartMenu();
 	}
+
+    private void Update()
+    {
+        moneyText.text = GameManager.instance.money.ToString();
+    }
 
     public void Pause()
     {

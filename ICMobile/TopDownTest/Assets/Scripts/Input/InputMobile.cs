@@ -14,9 +14,14 @@ public class InputMobile : IInput{
             ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.tag == "Water")
+                switch (hit.collider.tag)
                 {
-                    return hit.point;
+                    case "Water": return hit.point;
+                    case "Rudder": PlayerController.instance.sailorEvent.Invoke(1); break;
+                    case "Nest": PlayerController.instance.sailorEvent.Invoke(2); break;
+                    case "LeftCannons": PlayerController.instance.sailorEvent.Invoke(3); break;
+                    case "RightCannons": PlayerController.instance.sailorEvent.Invoke(4); break;
+                    case "FrontCannon": PlayerController.instance.sailorEvent.Invoke(5); break;
                 }
             }
         }

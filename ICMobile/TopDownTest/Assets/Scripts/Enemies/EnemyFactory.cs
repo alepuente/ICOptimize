@@ -36,12 +36,10 @@ public class EnemyFactory : MonoBehaviour
                     return enemies[i];
                 }            
             }
-        }  
-     
+        }       
         GameObject enemie;
         enemie = (GameObject)Instantiate(Resources.Load(enemyType, typeof(GameObject))) as GameObject;
         enemies.Add(enemie);
-        return enemie;
-        
+        return enemie;        
     }
 }

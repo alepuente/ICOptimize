@@ -16,8 +16,8 @@ public class EnemyController : MonoBehaviour
     {
         player = PlayerController.instance;
         attackPosition = Random.Range(0, player.attackPoint.Length);
-        speed = GameManager.instance.SpeedDic[tag];
-        turnSpeed = GameManager.instance.TurnSpeedDic[tag];
+        speed = GameManager.instance.SpeedDic[name];
+        turnSpeed = GameManager.instance.TurnSpeedDic[name];
     }
 
     void Update()

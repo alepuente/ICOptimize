@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         reset();
-        if (tag != "Player")
+        if(gameObject.name != "Player")
         {
             healthBar = GetComponentInChildren<Image>();
         }
@@ -20,8 +20,8 @@ public class Health : MonoBehaviour
 
     public void reset()
     {
-        health = GameManager.instance.HealthDic[gameObject.tag];
-        maxHealth = GameManager.instance.HealthDic[gameObject.tag];
+        health = GameManager.instance.HealthDic[gameObject.name];
+        maxHealth = GameManager.instance.HealthDic[gameObject.name];
     }
 
     private void Update()
@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
                 {
                     reset();
                     gameObject.SetActive(false);
+                    GameManager.instance.addMoney(name);
                 }
                 else
                 {

@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour {
     public Dictionary<string, float> FireRateDic;
     public Dictionary<string, float> SpeedDic;
     public Dictionary<string, float> TurnSpeedDic;
+    public Dictionary<string, int> RewardDic;
+
+    public float money;
 
     public float minX;
     public float maxX;
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour {
         FireRateDic = new Dictionary<string, float>();
         SpeedDic = new Dictionary<string, float>();
         TurnSpeedDic = new Dictionary<string, float>();
+        RewardDic = new Dictionary<string, int>();
 
         minX = -150;
         maxX = 150;
@@ -50,8 +54,15 @@ public class GameManager : MonoBehaviour {
         TurnSpeedDic.Add("Player", 2f);
         TurnSpeedDic.Add("boat", 1.5f);
         TurnSpeedDic.Add("ship", 1f);
+        
+        RewardDic.Add("boat", 100);
+        RewardDic.Add("ship", 300);
     }
 
+    public void addMoney(string tag)
+    {
+        money += RewardDic[tag];
+    }
 
     public float calculateDamage(string type, float health)
     {
