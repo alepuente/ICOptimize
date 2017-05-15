@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     public int cannonFront = 0;
 
     public GameObject flagObjects;
+    public GameObject frontCannon;
 
 
     private void Awake()

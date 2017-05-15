@@ -7,6 +7,7 @@ public class EnemyFactory : MonoBehaviour
 
     public static EnemyFactory instance;
     private List<GameObject> enemies;
+    public int enemiesAlive;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class EnemyFactory : MonoBehaviour
             enemies[i].GetComponent<Health>().reset();
             enemies[i].SetActive(false);
         }
+        enemiesAlive = 0;
     }
 
     public GameObject create(string enemyType)
@@ -33,6 +35,7 @@ public class EnemyFactory : MonoBehaviour
                 if (!enemies[i].activeInHierarchy)
                 {
                     enemies[i].SetActive(true);
+                    enemiesAlive++;
                     return enemies[i];
                 }            
             }
@@ -40,6 +43,7 @@ public class EnemyFactory : MonoBehaviour
         GameObject enemie;
         enemie = (GameObject)Instantiate(Resources.Load(enemyType, typeof(GameObject))) as GameObject;
         enemies.Add(enemie);
+        enemiesAlive++;
         return enemie;        
     }
 }

@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
                 {
                     reset();
                     gameObject.SetActive(false);
+                    EnemyFactory.instance.enemiesAlive--;
                     GameManager.instance.addMoney(name);
                 }
                 else

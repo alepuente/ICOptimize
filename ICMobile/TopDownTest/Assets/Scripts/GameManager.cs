@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour {
         DamageDic.Add("ship", 10f);
 
         HealthDic.Add("Player", 100f);
-        HealthDic.Add("boat", 30f);
-        HealthDic.Add("ship", 80f);
+        HealthDic.Add("boat", 20f);
+        HealthDic.Add("ship", 40f);
 
         FireRateDic.Add("Player", 2f);
         FireRateDic.Add("boat", 3f);
@@ -79,5 +79,9 @@ public class GameManager : MonoBehaviour {
         EnemyFactory.instance.clearEnemies();
         CameraController.instance.changeToMenu();
         MenuManager.instance.StartMenu();
+    }
+    public void enableFrontCannon()
+    {
+        PlayerController.instance.frontCannon.SetActive(true);
     }
 }
