@@ -107,7 +107,7 @@ public class MenuManager : MonoBehaviour
     public void upgradeCannonDamage()
     {
         GameManager.instance.money -= damagePrice;
-        GameManager.instance.updateDamage("Player", damageAmount);
+        GameManager.instance.updateDamage("Player", damageAmount+GameManager.instance.DamageDic["Player"]);
         damageAmount += 1;
         damagePrice += 200;
         damageButton.GetComponentInChildren<Text>().text = damagePrice.ToString();

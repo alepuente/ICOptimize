@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour {
 
         minX = -150;
         maxX = 150;
-        minZ = -130;
-        maxZ = 130;
+        minZ = -200;
+        maxZ = 200;
 
         DamageDic.Add("Player", 10f);
         DamageDic.Add("boat", 5f);
