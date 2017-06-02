@@ -17,6 +17,7 @@ public class InputMobile : IInput{
                 switch (hit.collider.tag)
                 {
                     case "Water": return hit.point;
+                    case "Limit": return hit.point;
                     case "Rudder": PlayerController.instance.sailorEvent.Invoke(1); break;
                     case "Nest": PlayerController.instance.sailorEvent.Invoke(2); break;
                     case "LeftCannons": PlayerController.instance.sailorEvent.Invoke(3); break;

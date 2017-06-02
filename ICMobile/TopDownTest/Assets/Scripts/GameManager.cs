@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
         DamageDic.Add("Player", 10f);
         DamageDic.Add("boat", 5f);
         DamageDic.Add("ship", 10f);
+        DamageDic.Add("Limit", 10f);
 
         HealthDic.Add("Player", 100f);
         HealthDic.Add("boat", 20f);
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
     public float calculateDamage(string type, float health)
     {
-        return health -DamageDic[type];
+        return health - DamageDic[type];
     }
 
     public void updateDamage(string type, float newDamage)

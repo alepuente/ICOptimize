@@ -121,9 +121,9 @@ public class PlayerController : MonoBehaviour {
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step * turnSpeed , 0.0f);
                 transform.rotation = Quaternion.LookRotation(new Vector3(newDir.x,0,newDir.z));
 
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.instance.minX, GameManager.instance.maxX),
+                /*transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.instance.minX, GameManager.instance.maxX),
                                                             transform.position.y,
-                                                              Mathf.Clamp(transform.position.z, GameManager.instance.minZ, GameManager.instance.maxZ));
+                                                              Mathf.Clamp(transform.position.z, GameManager.instance.minZ, GameManager.instance.maxZ));*/
             
 
              }
