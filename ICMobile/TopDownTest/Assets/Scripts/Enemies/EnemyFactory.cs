@@ -21,6 +21,7 @@ public class EnemyFactory : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].GetComponent<Health>().reset();
+            enemies[i].GetComponent<Health>().enemieHealthBar.healthPanel.SetActive(false);
             enemies[i].SetActive(false);
         }
         enemiesAlive = 0;

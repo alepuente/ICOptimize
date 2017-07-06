@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
         SpeedDic.Add("boat", 9f);
         SpeedDic.Add("ship",7f);
 
-        TurnSpeedDic.Add("Player", 2f);
+        TurnSpeedDic.Add("Player", 2.5f);
         TurnSpeedDic.Add("boat", 1.5f);
         TurnSpeedDic.Add("ship", 1f);
         
