@@ -42,6 +42,15 @@ public class SpawnManager : MonoBehaviour {
             canSpawn = true;
             isSpawning = true;
             maxEnemies += Random.Range(1, 3);
+            GameManager.instance.updateDamage("boat", 0.5f);
+            GameManager.instance.updateDamage("ship", 0.5f);
+            GameManager.instance.updateSpeed("boat", 0.75f);
+            GameManager.instance.updateSpeed("ship", 0.75f);
+            GameManager.instance.updateSteering("boat", 0.1f);
+            GameManager.instance.updateSteering("ship", 0.1f);
+            GameManager.instance.updateMaxHeatlh("boat", 1f);
+            GameManager.instance.updateMaxHeatlh("ship", 2f);
+            PlayerController.instance.GetComponent<Health>().reset();
         }
         }     
     }

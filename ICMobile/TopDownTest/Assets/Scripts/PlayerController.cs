@@ -32,6 +32,13 @@ public class PlayerController : MonoBehaviour {
     public GameObject flagObjects;
     public GameObject frontCannon;
 
+    public Renderer rudderPos;
+    public Renderer leftPos;
+    public Renderer rightPos;
+    public Renderer frontPos;
+    public Renderer nestPos;
+
+
 
     private void Awake()
     {
@@ -44,7 +51,6 @@ public class PlayerController : MonoBehaviour {
         turnSpeed = GameManager.instance.TurnSpeedDic[tag];
         patrolSpeed = GameManager.instance.SpeedDic[tag];
     }
-
    
     private void Update()
     {      
@@ -59,6 +65,14 @@ public class PlayerController : MonoBehaviour {
         cannonLeft = 0;
         cannonRight = 0;
         cannonFront = 0;
+
+        rudderPos.material.color = Color.red; ;
+        leftPos.material.color = Color.red; ;
+        rightPos.material.color = Color.red; ;
+        frontPos.material.color = Color.red; ;
+        nestPos.material.color = Color.red; ;
+
+        
         waypoints.Clear();
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().isKinematic = false;
@@ -79,11 +93,11 @@ public class PlayerController : MonoBehaviour {
     {
         switch (sailorType)
         {
-            case 1: if(rudderSailor < 1) rudderSailor++; break;
-            case 2: if (nestSailor < 1) nestSailor++; CameraController.instance.nest = true; break;
-            case 3: if (cannonLeft < 2) cannonLeft++; break;
-            case 4: if (cannonRight < 2) cannonRight++; break;
-            case 5: if (cannonFront < 2) cannonFront++; break;
+            case 1: if (rudderSailor < 1) rudderSailor++; rudderPos.material.color = Color.green; break;
+            case 2: if (nestSailor < 1) nestSailor++; nestPos.material.color = Color.green; CameraController.instance.nest = true; break;
+            case 3: if (cannonLeft < 2) cannonLeft++; leftPos.material.color = Color.green; break;
+            case 4: if (cannonRight < 2) cannonRight++; rightPos.material.color = Color.green; break;
+            case 5: if (cannonFront < 2) cannonFront++; frontPos.material.color = Color.green; break;
         }
     }
 
@@ -124,8 +138,7 @@ public class PlayerController : MonoBehaviour {
                 /*transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.instance.minX, GameManager.instance.maxX),
                                                             transform.position.y,
                                                               Mathf.Clamp(transform.position.z, GameManager.instance.minZ, GameManager.instance.maxZ));*/
-            
-
+          
              }
         }
     }

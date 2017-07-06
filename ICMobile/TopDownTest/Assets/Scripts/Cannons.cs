@@ -63,7 +63,15 @@ public class Cannons : MonoBehaviour
         if (other.gameObject.layer == 8 && other.tag != gameObject.tag  && sailors > 0 )
         {
             if (shootTimer > GameManager.instance.FireRateDic[gameObject.name])
-            {                
+            {
+                foreach (ParticleSystem item in transform.GetComponentsInChildren<ParticleSystem>())
+                {
+                    item.Play();
+                }
+                foreach (AudioSource item in transform.GetComponentsInChildren<AudioSource>())
+                {
+                    item.Play();
+                }
             other.GetComponent<Health>().health = GameManager.instance.calculateDamage(gameObject.name, other.GetComponent<Health>().health);
             shootTimer = 0;
             }
